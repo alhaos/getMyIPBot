@@ -36,6 +36,12 @@ func main() {
 	for update := range updates {
 		if update.Message.Text == "GetMyIP" {
 			response, err2 := http.Get(url)
+
+			if response == nil {
+				log.Println("response is nil error")
+				continue
+			}
+
 			if err2 != nil {
 				msg := tgbotapi.NewMessage(update.Message.Chat.ID, "error: "+err2.Error())
 				msg.ReplyToMessageID = update.Message.MessageID
